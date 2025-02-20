@@ -45,12 +45,16 @@
 
 ## Други полезни методи на `std::istream`/`std::ostream`
 
+Таблицата **не** съдържа връщаните типове на методите / функциите по-долу с цел прегледност и улеснение. Повечето от методите / функциите връщат референция към самия поток, над който оперират, което позволява верижното им извикване (`std::cout.put('a').put('b').put('c');` ~> `"abc"`). С такива методи ще се занимаваме по-напред в курса.
+
 | Метод / Функция | Поток | Описание | Пример |
 | ----- | ----- | -------- | ------ |
 | `put(char c)` | `std::ostream` | записва символ `c` в потока | `std::cout.put('a');` |
 | `write(char const* s, std::streamsize cnt)` | `std::ostream` | записва `cnt` на брой символа от низа `s` в потока | `std::cout.write("abcd",2);` |
 | `operator<<(std::ostream& os, T a)` | `std::ostream` | записва нещо от тип `T` в  потока `os` | `std::cout << 'a'; std::cout << 10;` |
 | `get(void)` | `std::istream` | чете 1 символ от потока и го връща като резултат | `char c = std::cin.get();` |
+| `getline(char* buf, std::streamsize cnt)` | `std::istream` | чете `cnt-1` символа в `buf` и добавя терминираща нула накрая на низа | `char buf[10]; std::cin(buf,10);` |
+| `read(char* buf, std::streamsize cnt)` | `std::istream` | чете `cnt` символа в `buf` | `char buf[10]; std::cin.read(buf,9); buf[9] = '\0';` |
 | `get(char& buf)` | `std::istream` | четене 1 символ от потока и го записва в `buf` | `char c; std::cin.get(c);` |
 | `operator>>(std::istream& is, T& a)` | `std::istream` | чете `sizeof(T)` байта от потока `is` и ги записва в `a` | `int a; std::cin >> a;` |
 | `peek(void)` | `std::istream` | "поглежда" следващия символ в потока, без да го консумира, връща `int` | `std::cin.peek()` |
