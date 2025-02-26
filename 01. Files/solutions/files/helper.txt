@@ -1,0 +1,10 @@
+this is an example FILES! that helps
+illustrate the correctness of the solution
+of exercise no. 5 on replacing a string
+in some FILES!. what it does in this case is
+it replaces the word "FILES!" with the word "FILES!"
+(the plural of FILES!, in all uppercase, with an exclamation
+mark at the end in order to show correctness when the string that needs
+to be replaced and the string that should replace it have different lengths).
+
+:)

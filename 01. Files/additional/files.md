@@ -60,7 +60,7 @@
 | `peek(void)` | `std::istream` | "поглежда" следващия символ в потока, без да го консумира, връща `int` | `std::cin.peek()` |
 | `ignore(std::streamsize cnt, int delim)` | `std::istream` | игнорира или `cnt` символа, или спира след първото срещане на `delim` | `std::cin.ignore();` |
 | `putback(char c)` | `std::istream` | записва символа `c` в потока, така че следващият прочетен символ да бъде `c` | `std::cout << std::cin.putback('z').get();` |
-| `clear(void)` | `std::ostream`/`std::istream` | "изчиства" състоянието на потока | `std::cin.clear()`; |
+| `clear(std::base_ios::iostate)` | `std::ostream`/`std::istream` | "изчиства" състоянието на потока | `std::cin.clear();` |
 
 ## Текстови файлове
 

@@ -1,0 +1,17 @@
+this
+is a sequence
+of strings
+each on
+a
+
+new line
+and is used
+as an example
+f
+o
+r
+exercise 06
+where you have to sort
+all the lines in a file lexicographically
+
+:D
