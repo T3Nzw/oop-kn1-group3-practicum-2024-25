@@ -12,8 +12,6 @@ using BinaryFunction = std::function<Ret(T,U)>;
 
 template<typename Ret, typename T, typename U>
 UnaryFunction<Ret,U> partialFunctionApplication(BinaryFunction<Ret,T,U> op, T const& lArg) {
-  //capture by value since lArg might be an rvalue
-  //at the call site
   return [=](U rArg) -> Ret { return op(lArg,rArg); };
 }
 
