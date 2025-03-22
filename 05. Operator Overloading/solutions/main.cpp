@@ -13,6 +13,7 @@ int main() {
 
   std::cout << c1 + c2 << '\n';
   std::cout << c2 - c1 << '\n';
+  std::cout << c1 * c2 << '\n';
 
   unique_ptr<Complex> ptr1 = make_unique(Complex(1,2));
 

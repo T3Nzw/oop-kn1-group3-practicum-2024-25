@@ -15,7 +15,9 @@ Complex Complex::operator-(Complex const& other) const {
 }
 
 Complex Complex::operator*(Complex const& other) const {
-  return Complex(real*other.real,imaginary*other.imaginary);
+  Complex res(*this);
+  res *= other;
+  return res;
 }
 
 Complex& Complex::operator+=(Complex const& other) {
@@ -31,8 +33,10 @@ Complex& Complex::operator-=(Complex const& other) {
 }
 
 Complex& Complex::operator*=(Complex const& other) {
-  real *= other.real;
-  imaginary *= other.imaginary;
+  double multReal = real*other.real - imaginary*other.imaginary;
+  double multImaginary = real*other.imaginary + imaginary*other.real;
+  real = multReal;
+  imaginary = multImaginary;
   return *this;
 }
 
