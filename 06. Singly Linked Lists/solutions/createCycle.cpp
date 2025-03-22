@@ -20,11 +20,11 @@ node* fromVector(std::vector<int> const& vec) {
 
 //освобождава паметта и за потенциално
 //циклични списъци. може да се направи и итеративно
-void freeCyc(node* list, node* init) {
+void free(node* list, node* init) {
   if (!list || list==init)
     return;
 
-  freeCyc(list->next,init);
+  free(list->next,init);
   delete list;
 }
 
