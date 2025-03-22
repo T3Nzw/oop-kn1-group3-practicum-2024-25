@@ -64,11 +64,11 @@ private:
 
 - `size_t capacity() const`, който връща капацитета на низа;
 
-- `size_t find(char c) const`, който връща индекса на първото срещане на символа `c`;
+- `long long find(char c) const`, който връща индекса на първото срещане на символа `c`;
 
-- `size_t find(String const& substr) const`, който връща индекса на първото срещане на низа `substr`;
+- `long long find(String const& substr) const`, който връща индекса на първото срещане на низа `substr`;
 
-- `String slice(size_t left, size_t right)`, който връща подниза, започващ на индекс `left` и чийто последен символ се намира на индекс `right-1`;
+- `String slice(size_t left, size_t right) const`, който връща подниза, започващ на индекс `left` и чийто последен символ се намира на индекс `right-1`;
 
 - `void clear()`, който "изчиства" съдържанието в обекта;
 
