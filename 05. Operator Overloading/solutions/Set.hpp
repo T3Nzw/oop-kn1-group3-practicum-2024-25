@@ -100,7 +100,7 @@ public:
   }
 
   Set& operator+=(Set const& other) {
-    unifyMutable(other);
+    return unifyMutable(other);
   }
 
   Set operator*(Set const& other) const {
@@ -108,7 +108,7 @@ public:
   }
 
   Set& operator*=(Set const& other) {
-    intersectMutable(other);
+    return intersectMutable(other);
   }
 
   Set operator-(Set const& other) const {
@@ -116,7 +116,7 @@ public:
   }
 
   Set& operator-=(Set const& other) {
-    differenceMutable(other);
+    return differenceMutable(other);
   }
 
   Set operator^(Set const& other) const {
@@ -124,7 +124,7 @@ public:
   }
 
   Set& operator^=(Set const& other) {
-    symmetricDifferenceMutable(other);
+    return symmetricDifferenceMutable(other);
   }
 
   bool operator<=(Set const& other) const {
