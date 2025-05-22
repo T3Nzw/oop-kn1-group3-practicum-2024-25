@@ -82,7 +82,7 @@ std::cout << d.C::i << '\n';
 
 5.
 
-```
+```c++
 struct A {
   A(int i) : i(i) {}
   int i;
