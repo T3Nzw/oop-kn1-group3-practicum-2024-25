@@ -22,19 +22,19 @@ public:
   Optional() : m_hasValue(false) {}
   
   Optional(T const& value) : m_hasValue(true) {
-    new (&m_value) T(value);
+    new (&m_value.value) T(value);
   }
 
   Optional(Optional const& other) : m_hasValue(other.m_hasValue) {
     if (other.m_hasValue) {
-      new (&m_value) T(other.m_value);
+      new (&m_value.value) T(other.m_value);
     }
   } 
 
   Optional(Optional&& other) : m_hasValue(other.m_hasValue) {
     if (other.m_hasValue) {
-      new (&m_value) T(std::move(other.m_value));
-      other.m_value.~T();
+      new (&m_value.value) T(std::move(other.m_value));
+      other.m_value.value.~T();
       other.m_hasValue = false;
     }
   }
@@ -42,7 +42,7 @@ public:
   Optional& operator=(Optional const& other) {
     if (this != &other) {
       if (other.m_hasValue)
-        new (&m_value) T(other.m_value);
+        new (&m_value.value) T(other.m_value);
       
       m_hasValue = other.m_hasValue;
     }
@@ -52,11 +52,11 @@ public:
   Optional& operator=(Optional&& other) {
     if (this != &other) {
       if (m_hasValue) {
-        m_value.~T();
+        m_value.value.~T();
       }
 
       if (other.m_hasValue) {
-        new (&m_value) T(other.m_value);
+        new (&m_value.value) T(other.m_value);
       }
       m_hasValue = other.m_hasValue;
     }
@@ -65,7 +65,7 @@ public:
 
   ~Optional() {
     if (m_hasValue) {
-      m_value.~T();
+      m_value.value.~T();
     }
   }
 
@@ -76,13 +76,13 @@ public:
   T& value() {
     if (!hasValue())
       throw BadOptionalAccess();
-    return m_value;
+    return m_value.value;
   }
 
   T const& value() const {
     if (!hasValue())
       throw BadOptionalAccess();
-    return m_value;
+    return m_value.value;
   }
 
   void swap(Optional& other) {
@@ -91,22 +91,27 @@ public:
     using std::swap;
     
     if (m_hasValue && other.m_hasValue) {
-      swap(m_value, other.m_value);
+      swap(m_value.value, other.m_value);
     }
     else if (m_hasValue) {
-      new (&other.m_value) T(m_value);
-      m_value.~T();
+      new (&other.m_value.value) T(m_value);
+      m_value.value.~T();
     }
     else if (other.m_hasValue) {
-      new (&m_value) T(other.m_value);
-      other.m_value.~T();
+      new (&m_value.value) T(other.m_value);
+      other.m_value.value.~T();
     }
 
     std::swap(m_hasValue, other.m_hasValue);
   }
 
 private:
-  union { T m_value; };
+  union Value { 
+    T value; 
+
+    Value() {}
+    ~Value() {}
+  } m_value;
   bool m_hasValue;
 };
 
