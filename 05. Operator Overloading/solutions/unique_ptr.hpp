@@ -48,10 +48,28 @@ public:
   unique_ptr(T* ptr) : m_ptr(ptr) {}
 
   unique_ptr(unique_ptr const&)=delete;
-  
+  unique_ptr(unique_ptr&& other) {
+    move(std::move(other));
+  }
+
   unique_ptr& operator=(unique_ptr const&)=delete;
+  // copy-and-swap идиомът е приложим и тук,
+  // implementation is left as an exercise to the reader :)
+  unique_ptr& operator=(unique_ptr&& other) {
+    if (this != &other) {
+      delete m_ptr;
+      move(std::move(other));
+    }
+    return *this;
+  }
 
   ~unique_ptr() { delete m_ptr; }
+
+private:
+  void move(unique_ptr&& other) {
+    m_ptr = other.m_ptr;
+    other.m_ptr = nullptr;
+  }
 
 private:
   T* m_ptr;
