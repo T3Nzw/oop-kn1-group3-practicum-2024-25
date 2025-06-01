@@ -246,14 +246,14 @@ public:
       new (&other.m_value) L(std::move(m_value.left));
 
       m_value.left.~L();
-      m_value.right.~R();
+      other.m_value.right.~R();
     }
     else if (activeType == ValueType::RIGHT && other.activeType == ValueType::LEFT) {
       new (&m_value) L(std::move(other.m_value.left));
       new (&other.m_value) R(std::move(m_value.right));
 
       m_value.right.~R();
-      m_value.left.~L();
+      other.m_value.left.~L();
     }
     else {
       swap(m_value.right, other.m_value.right);
