@@ -125,7 +125,7 @@ struct Right {};
 template<typename T, typename Tag>
 struct TaggedValue {
   explicit TaggedValue(T const& value)
-  : value(std::move(value)) {}
+  : value(value) {}
   
   T value;
   operator T() const { return value; }
