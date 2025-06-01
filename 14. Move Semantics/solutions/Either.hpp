@@ -155,11 +155,11 @@ public:
   // (НЕ заделя ДИНАМИЧНА памет, но въпреки това след това ние
   // сме длъжни да освободим заделената памет!!!)
   Either(LeftType<L> const& left) : activeType(ValueType::LEFT) {
-    new (&m_value) L(std::move(left));
+    new (&m_value) L(left);
   }
 
   Either(RightType<R> const& right) : activeType(ValueType::RIGHT) {
-    new (&m_value) R(std::move(right));
+    new (&m_value) R(right);
   }
 
   Either(Either const& other) : activeType(other.activeType) {
