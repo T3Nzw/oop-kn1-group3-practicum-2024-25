@@ -129,5 +129,29 @@ int main() {
   Comparator<char const*> scmp;
   std::cout << scmp("hello, world!", "Hello, world!") << '\n';
 
+  Optional<int> i1;
+
+  i1 = 4;
+
+  if (i1.hasValue())
+    std::cout << i1.value() << '\n';
+
+  Optional<int> i2(11);
+
+  std::swap(i1, i2);
+  std::cout << i1.value() << ' ' << i2.value() << '\n';
+
+  swap(i1, i2);
+  std::cout << i1.value() << ' ' << i2.value() << '\n';
+
+  i2 = std::move(i1);
+
+  if (i1.hasValue()) {
+    std::cout << "i1 has value: " << i1.value() << '\n';
+  }
+  else {
+    std::cout << "i1 has no value\n";
+  }
+
   return 0;
 }

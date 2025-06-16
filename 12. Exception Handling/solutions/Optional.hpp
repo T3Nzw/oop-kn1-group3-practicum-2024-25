@@ -27,13 +27,13 @@ public:
 
   Optional(Optional const& other) : m_hasValue(other.m_hasValue) {
     if (other.m_hasValue) {
-      new (&m_value.value) T(other.m_value);
+      new (&m_value.value) T(other.m_value.value);
     }
   } 
 
   Optional(Optional&& other) : m_hasValue(other.m_hasValue) {
     if (other.m_hasValue) {
-      new (&m_value.value) T(std::move(other.m_value));
+      new (&m_value.value) T(std::move(other.m_value.value));
       other.m_value.value.~T();
       other.m_hasValue = false;
     }
@@ -42,7 +42,7 @@ public:
   Optional& operator=(Optional const& other) {
     if (this != &other) {
       if (other.m_hasValue)
-        new (&m_value.value) T(other.m_value);
+        new (&m_value.value) T(other.m_value.value);
       
       m_hasValue = other.m_hasValue;
     }
@@ -56,9 +56,11 @@ public:
       }
 
       if (other.m_hasValue) {
-        new (&m_value.value) T(other.m_value);
+        new (&m_value.value) T(other.m_value.value);
+        other.m_value.value.~T();
       }
       m_hasValue = other.m_hasValue;
+      other.m_hasValue = false;
     }
     return *this;
   }
@@ -91,18 +93,22 @@ public:
     using std::swap;
     
     if (m_hasValue && other.m_hasValue) {
-      swap(m_value.value, other.m_value);
+      swap(m_value.value, other.m_value.value);
     }
     else if (m_hasValue) {
-      new (&other.m_value.value) T(m_value);
+      new (&other.m_value.value) T(m_value.value);
       m_value.value.~T();
     }
     else if (other.m_hasValue) {
-      new (&m_value.value) T(other.m_value);
+      new (&m_value.value) T(other.m_value.value);
       other.m_value.value.~T();
     }
 
     std::swap(m_hasValue, other.m_hasValue);
+  }
+
+  friend void swap(Optional& lhs, Optional& rhs) {
+    lhs.swap(rhs);
   }
 
 private:
